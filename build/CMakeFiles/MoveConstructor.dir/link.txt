@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMoveConstructor.a CMakeFiles/MoveConstructor.dir/src/move_constructor_lecture.cpp.o
+/usr/bin/ranlib libMoveConstructor.a
