@@ -1,0 +1,10 @@
+^C:\WORKSPACE\CPP_TUTORIAL\BUILD\CMAKEFILES\0D79A680C6A3DA3B888FA40AE0068408\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/workspace/cpp_tutorial -BC:/workspace/cpp_tutorial/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/workspace/cpp_tutorial/build/MyProject.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

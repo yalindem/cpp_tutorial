@@ -206,8 +206,7 @@ namespace Algo {
 
 }
 
-namespace Virtual
-{
+namespace Virtual{
 	/*
 	* without virtual dtor, the output is:
 	*	ctor Base
@@ -245,9 +244,74 @@ namespace Virtual
 	}
 }
 
+namespace STL{
+	/*
+	* std::list: doubly linked list
+	* std::list is a container that support constant time insertions and deletions from anywhere in the list.
+	* Its implemented as a doubly linked list, where each element is connected to its previous and next element.
+	* Features: 
+	 * Dynamic Size: Can grow or shrink in size dynamically.
+	 * Bidirectional Iterators: Supports iterators that can traverse the list in both directions.
+	 * Efficient Insertions and Deletions: Insertion and deletion of elements are efficient, as they do not require shifting elements.
+	*/
+	void iterate_with_iterators(const std::list<int>& list)
+	{
+		for(std::list<int>::const_iterator it=list.cbegin(); it!=list.cend(); ++it)
+		{
+			std::cout << "element: " << *it << "\n";
+		}
+		std::cout << "\n-----------------------\n";
+	}
+
+	void range_based_iteration(const std::list<int>& list)
+	{
+		for(const auto& element : list)
+		{
+			std::cout << "element: " << element << "\n";
+		}
+		std::cout << "\n-----------------------\n";
+	}
+
+	void list()
+	{
+		std::list<int> my_list {1,2,3,4,5};
+		my_list.push_back(6);
+		my_list.push_front(0);
+		iterate_with_iterators(my_list);
+
+		my_list.pop_back();
+		my_list.pop_front();
+		range_based_iteration(my_list);
+
+		my_list.push_back(5);
+		my_list.push_back(5);
+		my_list.push_back(5);
+		my_list.remove(5);
+		iterate_with_iterators(my_list);
+		
+		// Inserting elements:
+		auto it = my_list.begin();
+		std::advance(it, 2);  // Move iterator to the 3rd position
+		my_list.insert(it, 10); // Inserts 10 before the 3rd element
+		iterate_with_iterators(my_list);
+
+		// Sorting and Reversing:
+		my_list.sort();
+		iterate_with_iterators(my_list); 
+		my_list.reverse(); 
+		iterate_with_iterators(my_list);
+
+	}
+	
+	void run(){
+		list();
+	}
+}
+
 int main()
 {
 	//Algo::run();
-	Virtual::run();
+	//Virtual::run();
+	STL::run();
 }
 
