@@ -1,2 +1,0 @@
-/usr/bin/ar qc libOperatorOverloading.a CMakeFiles/OperatorOverloading.dir/src/operator_overloading_lecture.cpp.o
-/usr/bin/ranlib libOperatorOverloading.a

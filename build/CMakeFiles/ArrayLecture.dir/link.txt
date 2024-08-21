@@ -1,2 +1,0 @@
-/usr/bin/ar qc libArrayLecture.a CMakeFiles/ArrayLecture.dir/src/array_lecture.cpp.o
-/usr/bin/ranlib libArrayLecture.a
