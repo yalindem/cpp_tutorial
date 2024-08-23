@@ -11,6 +11,283 @@
 #include <numeric>
 #include <iterator>
 
+
+
+namespace section2
+{
+	namespace arrays {
+
+		void main()
+		{
+			int A[5]; // create in stack
+			int B[5] = { 1,2,3,4,5 }; // initialization
+			int C[] = { 1,2,3,4,5,6,7 };
+			for (int i = 0; i < 5; ++i)
+			{
+				printf("%d\n", B[i]);
+			}
+			std::cout << "\n";
+			std::cout << "size of an array: " << sizeof(B) / sizeof(int) << std::endl;
+			for (auto i : C)
+			{
+				printf("%d\n", i);
+			}
+			std::cout << "size of an array: " << sizeof(C) / sizeof(int) << std::endl;
+
+		}
+	}
+
+	namespace structures
+	{
+		/*
+			* will be created in stack
+		*/
+		struct Rectangle {
+			int lenght; //2 byte
+			int breadth; // 2 byte
+		};
+
+		struct ComplexNumber {
+			int real;
+			int img;
+		};
+
+		struct Student {
+			int roll;
+			char name[25];
+			char dept[10];
+			char address[50];
+		};
+
+
+
+		void main()
+		{
+			Rectangle r; // 4 byte
+			Rectangle e{ 1,2 };
+
+		}
+	}
+
+	namespace Pointers {
+#include <stdlib.h>	
+		/*
+		* There are 3 memory sections.
+		*	stack
+		*	heap
+		*	code section
+		* Program access directly to the code section and staack memory but cannot access to
+		the heap memory. So we need pointers to access the heap memory. We need them also for accessing
+		resources outside program or
+		we need them to pass parameters
+		*/
+		void main()
+		{
+			int* p; // it will declerad in stack !!!
+			p = (int*)malloc(5 * sizeof(int)); // allocates memory in heap for 5 ints, malloc return void*: this is C-way
+			p = new int[5]; // C++ way
+			p[0] = 1;
+			delete[] p; // C++ way
+			//free(p); //C-way
+
+			int* a;
+			char* b;
+			double* c;
+
+			std::cout << sizeof(a) << std::endl; // 8-bytes
+			std::cout << sizeof(b) << std::endl; // 8-bytes
+			std::cout << sizeof(c) << std::endl; // 8-bytes
+
+		}
+	}
+
+	namespace References {
+
+		// there is no reference in C.
+
+		void main()
+		{
+			int a = 10;
+			int& r = a; // must initialized while declaring
+			std::cout << a << "\n"; // 10
+			a++;
+			std::cout << a << "\n"; // 11
+			std::cout << r << "\n"; // 11
+
+			int b = 24;
+			r = b;
+
+			std::cout << a << "\n"; // 24
+
+		}
+	}
+
+	namespace PointertoStructer {
+#include <stdlib.h>	
+		struct Rectangle {
+			int lenght;
+			int breadth;
+		};
+
+		void main()
+		{
+
+			Rectangle r = { 1,2 };
+			Rectangle* p = &r; // this is a static
+			// p.lenght : wrong
+			// *p.lenght : also wrong because . has higher precedence
+			(*p).lenght; // this is correct
+			// or beetter
+			p->lenght;
+
+			Rectangle* a; // created in the stack
+
+			a = (Rectangle*)malloc(sizeof(Rectangle)); //allocating memory in heap, this is dynamic one
+			//or
+			a = new Rectangle; //allocating memory in heap, now pointer is pointing to somewhere in heap memory, this is dynamic one
+			a->breadth;
+			a->lenght;
+		}
+	}
+
+	namespace Functions {
+
+		/*
+		* x,y,z are created in stack.
+		* add functions is created in the stack also the parameters a,b,c
+		* as soon as the function add returns the value, the stack memeory is deleted for add function
+		*/
+
+		int add(int a, int b)
+		{
+			int c;
+			c = a + b;
+			return c;
+		}
+
+		void main()
+		{
+			int x, y, z;
+			x = 10; 
+			y = 5;
+			z = add(x,y);
+			std::cout << z << "\n";
+		}
+	}
+
+	namespace ArrayasParameter {
+		/*
+		* array cannot be passed as value, should be passed as adress(pointer)
+		* If you make any change in the array, then it will effect the array also in the main function
+		* 
+		*/
+
+		void goo(int A[])
+		{	
+			// pointer size is 8 bytes
+			std::cout << sizeof(A) / sizeof(int) << "\n"; // this will print 8 bytes/ 4 bytes = 2 but whyyy ??? 
+														  // because array will be pass by adress not by value,
+														  // because sizeof(A) returns the sizeof int* 
+														  // if you call this in the main, then it will print 5;
+		}
+
+		int* foo(int n)
+		{
+			// returns a pointer
+			int* p;
+			p = (int*)malloc(sizeof(int));
+			return p;
+		}
+
+		void fun(int A[], int n)
+		{
+			for (int i = 0; i<n; ++i)
+			{
+				std::cout << A[i] << "\n";
+			}	
+		}
+
+		
+		void main()
+		{
+			int A[5] = { 1,2,3,4,5 };
+			//fun(A, 5);
+
+			//foo(5);
+
+			goo(A);
+		}
+	}
+
+	namespace TemplateClass{
+
+		template <class T>
+		class Arithmatic {
+		private:
+			T a;
+			T b;
+
+		public:
+			Arithmatic(T a, T b)
+			{
+				this->a = a;
+				this->b = b;
+			}
+			
+			T add()
+			{
+				T c;
+				c = a + b;
+				return c;
+			}
+			T sub()
+			{
+				T c;
+				c = a - b;
+				return c;
+			}
+
+		};
+		
+		void main()
+		{
+			Arithmatic<double> a_obj(1.0, 2.0);
+			std::cout << a_obj.add() << "\n";
+		}
+
+	}
+
+}
+
+namespace Section4 {
+	namespace StackHeapMemory{
+
+		void stackfunc2(int i)
+		{
+			int a; // stack
+			// after that the memoery is deleted
+		}
+
+		void stackfunc1()
+		{
+			int x{0}; // stack
+			stackfunc2(x); // control goes there
+			// after that the memoery is deleted
+		}
+
+
+
+		void main()
+		{
+			int a; // stack
+			float b; // stack
+			stackfunc1(); // control goes there
+			// after that the memoery is deleted
+		}
+	}
+}
+
+
 namespace Algo {
 
 	class Point {
