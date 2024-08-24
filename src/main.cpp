@@ -12,12 +12,255 @@
 #include <iterator>
 
 
+namespace BIGO
+{
+	int O1(int n)
+	{
+		return n+n;
+	}
+
+	void On(int n)
+	{
+		for(int i = 0; i<n; ++i)
+		{
+			std::cout << i << "\n";
+		}
+	}
+
+	void On2(int n)
+	{
+		for(int i = 0; i<n; ++i)
+		{
+			for(int j = 0; j<n; ++j)
+			{
+				std::cout << i << j << "\n";
+			}
+		}
+	}
+
+	void Ologn(int n)
+	{
+		//using for searching, far more efficient than O(n), O(n**2) and O(nlong(n))
+	}
+
+	void Onlogn()
+	{
+		//using for sorting: merge sort and quick sort
+	}
+
+	void run()
+	{
+		
+	}
+
+}
+
+namespace STL
+{
+	/*
+	* std::list: doubly linked list
+	* std::list is a container that support constant time insertions and deletions from anywhere in the list.
+	* Its implemented as a doubly linked list, where each element is connected to its previous and next element.
+	* Features: 
+	 * Dynamic Size: Can grow or shrink in size dynamically.
+	 * Bidirectional Iterators: Supports iterators that can traverse the list in both directions.
+	 * Efficient Insertions and Deletions: Insertion and deletion of elements are efficient, as they do not require shifting elements.
+	*/
+
+	void iterate_with_iterators(const std::list<int>& list)
+	{
+		for(std::list<int>::const_iterator it=list.cbegin(); it!=list.cend(); ++it)
+		{
+			std::cout << "element: " << *it << "\n";
+		}
+		std::cout << "\n-----------------------\n";
+	}
+
+	void range_based_iteration(const std::list<int>& list)
+	{
+		for(const auto& element : list)
+		{
+			std::cout << "element: " << element << "\n";
+		}
+		std::cout << "\n-----------------------\n";
+	}
+
+	void linked_list()
+	{
+
+		/*
+		*   1 -> 2 -> 3 -> 4 -> nullptr
+		   head           tail
+
+		   * contigous in memeory
+		   * Node-metodology: Node has value and next-pointer
+		*/
+
+		std::list<int> my_list {1,2,3,4,5};
+		my_list.push_back(6);
+		my_list.push_front(0);
+		iterate_with_iterators(my_list);
+
+		my_list.pop_back();
+		my_list.pop_front();
+		range_based_iteration(my_list);
+
+		my_list.push_back(5);
+		my_list.push_back(5);
+		my_list.push_back(5);
+		my_list.remove(5);
+		iterate_with_iterators(my_list);
+		
+		// Inserting elements:
+		auto it = my_list.begin();
+		std::advance(it, 2);  // Move iterator to the 3rd position
+		my_list.insert(it, 10); // Inserts 10 before the 3rd element
+		iterate_with_iterators(my_list);
+
+		// Sorting and Reversing:
+		my_list.sort();
+		iterate_with_iterators(my_list); 
+		my_list.reverse(); 
+		iterate_with_iterators(my_list);
+
+		
+
+
+
+
+	}
+	
+	class Node
+	{
+		public:
+			int value;
+			Node* next;
+
+			Node(int value) : value{value}, next{nullptr}
+			{}
+	};
+
+	class LinkedList{
+		public:
+			LinkedList(int value)
+			{
+				//create new Node
+				Node* newNode = new Node(value);
+				head = newNode;
+				tail = head;
+				length = 1;
+
+			}
+
+			~LinkedList()
+			{
+				Node*  temp = head;
+				while(temp)
+				{
+					head = head->next;
+					delete temp;
+					temp = head;
+				}
+			}
+			
+			void print()
+			{
+				Node* temp = head;
+				while(temp != nullptr)
+				{
+					std::cout << temp->value << "\n";
+					temp = temp->next;
+				}
+			}
+
+			void append(const int& value)
+			{
+				//create new Node and Node to end
+				Node* newNode = new Node(value);
+				if(length == 0)
+				{
+					head = newNode;
+					tail = newNode;
+				}
+				else{
+					tail->next = newNode;
+					tail = newNode;
+				}
+				length++;
+
+			}
+			
+			void deleteLast()
+			{
+				if(length == 0)
+				{
+					return;
+				}
+				Node* temp = head;
+				if(length==1)
+				{
+					head = nullptr;
+					tail = nullptr;
+				}
+				else
+				{
+					Node* pre = head;
+					while(temp->next != nullptr)
+					{
+						pre = temp;
+						temp = temp->next;
+					}
+					tail = pre;
+					tail->next = nullptr;
+				}
+				length--;
+				delete temp;
+			}
+
+			void prepend()
+			{
+				// create new Node and Note to beginning
+			}
+
+			void insert()
+			{
+				//create new Node and insert Node
+			}
+
+		private:
+			Node* head{nullptr};
+			Node* tail{nullptr};
+			int length{0};
+	};
+
+	void run(){
+		//linked_list();
+		LinkedList* linked_list = new LinkedList(4);
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->append(10);
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteLast();
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteLast();
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteLast();
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteLast();
+		linked_list->print();
+	}
+}
+
 
 namespace section2
 {
 	namespace arrays {
 
-		void main()
+		void run()
 		{
 			int A[5]; // create in stack
 			int B[5] = { 1,2,3,4,5 }; // initialization
@@ -61,11 +304,10 @@ namespace section2
 
 
 
-		void main()
+		void run()
 		{
 			Rectangle r; // 4 byte
 			Rectangle e{ 1,2 };
-
 		}
 	}
 
@@ -259,8 +501,10 @@ namespace section2
 
 }
 
-namespace Section4 {
-	namespace StackHeapMemory{
+namespace Section4 
+{
+	namespace StackHeapMemory
+	{
 
 		void stackfunc2(int i)
 		{
@@ -275,9 +519,7 @@ namespace Section4 {
 			// after that the memoery is deleted
 		}
 
-
-
-		void main()
+		void run()
 		{
 			int a; // stack
 			float b; // stack
@@ -285,10 +527,23 @@ namespace Section4 {
 			// after that the memoery is deleted
 		}
 	}
+
+	namespace DataStructures 
+	{
+		/*
+		* Logical Data Structures:                			Physical:
+		--------------------------                			-----------------
+		1 - Stack: linear (LIFO)                            1 - array  
+		2 - Queues: linear (FIFO)                        	2 - list
+		3 - Trees: nonlinear
+		4 - Graph: nonlinear
+		5 - Hash table: Tabular
+		*/
+	}
 }
 
-
-namespace Algo {
+namespace Algo 
+{
 
 	class Point {
 	public:
@@ -483,7 +738,8 @@ namespace Algo {
 
 }
 
-namespace Virtual{
+namespace Virtual
+{
 	/*
 	* without virtual dtor, the output is:
 	*	ctor Base
@@ -521,69 +777,7 @@ namespace Virtual{
 	}
 }
 
-namespace STL{
-	/*
-	* std::list: doubly linked list
-	* std::list is a container that support constant time insertions and deletions from anywhere in the list.
-	* Its implemented as a doubly linked list, where each element is connected to its previous and next element.
-	* Features: 
-	 * Dynamic Size: Can grow or shrink in size dynamically.
-	 * Bidirectional Iterators: Supports iterators that can traverse the list in both directions.
-	 * Efficient Insertions and Deletions: Insertion and deletion of elements are efficient, as they do not require shifting elements.
-	*/
-	void iterate_with_iterators(const std::list<int>& list)
-	{
-		for(std::list<int>::const_iterator it=list.cbegin(); it!=list.cend(); ++it)
-		{
-			std::cout << "element: " << *it << "\n";
-		}
-		std::cout << "\n-----------------------\n";
-	}
 
-	void range_based_iteration(const std::list<int>& list)
-	{
-		for(const auto& element : list)
-		{
-			std::cout << "element: " << element << "\n";
-		}
-		std::cout << "\n-----------------------\n";
-	}
-
-	void list()
-	{
-		std::list<int> my_list {1,2,3,4,5};
-		my_list.push_back(6);
-		my_list.push_front(0);
-		iterate_with_iterators(my_list);
-
-		my_list.pop_back();
-		my_list.pop_front();
-		range_based_iteration(my_list);
-
-		my_list.push_back(5);
-		my_list.push_back(5);
-		my_list.push_back(5);
-		my_list.remove(5);
-		iterate_with_iterators(my_list);
-		
-		// Inserting elements:
-		auto it = my_list.begin();
-		std::advance(it, 2);  // Move iterator to the 3rd position
-		my_list.insert(it, 10); // Inserts 10 before the 3rd element
-		iterate_with_iterators(my_list);
-
-		// Sorting and Reversing:
-		my_list.sort();
-		iterate_with_iterators(my_list); 
-		my_list.reverse(); 
-		iterate_with_iterators(my_list);
-
-	}
-	
-	void run(){
-		list();
-	}
-}
 
 int main()
 {

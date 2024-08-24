@@ -1,5 +1,5 @@
 @echo off
-
+rm build
 set "BUILD_TYPE=Debug"
 if "%1"=="" (
     echo No build type specified, defaulting to Debug.
@@ -7,10 +7,8 @@ if "%1"=="" (
     set "BUILD_TYPE=%1"
 )
 
-if not exist build (
-    mkdir build
-)
 
+mkdir build
 cd build
 
 cmake -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
