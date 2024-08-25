@@ -125,257 +125,302 @@ namespace STL
 		iterate_with_iterators(my_list);
 	}
 	
-	class Node
-	{
-		public:
-			int value;
-			Node* next;
+    namespace LinkedList{
+		class Node
+		{
+			public:
+				int value;
+				Node* next;
 
-			Node(int value) : value{value}, next{nullptr}
-			{}
-	};
+				Node(int value) : value{value}, next{nullptr}
+				{}
+		};
 
-	class LinkedList{
-		public:
-			LinkedList(int value)
-			{
-				//create new Node
-				Node* newNode = new Node(value);
-				head = newNode;
-				tail = head;
-				length = 1;
-
-			}
-
-			~LinkedList()
-			{
-				Node*  temp = head;
-				while(temp)
+		class LinkedList{
+			public:
+				LinkedList(int value)
 				{
-					head = head->next;
-					delete temp;
-					temp = head;
-				}
-			}
-			
-			void print()
-			{
-				Node* temp = head;
-				while(temp != nullptr)
-				{
-					std::cout << temp->value << "\n";
-					temp = temp->next;
-				}
-				std::cout << "-------------------\n";
-			}
-
-			void append(const int& value)
-			{
-				//create new Node and Node to end
-				Node* newNode = new Node(value);
-				if(length == 0)
-				{
+					//create new Node
+					Node* newNode = new Node(value);
 					head = newNode;
-					tail = newNode;
-				}
-				else{
-					tail->next = newNode;
-					tail = newNode;
-				}
-				length++;
+					tail = head;
+					length = 1;
 
-			}
-			
-			void deleteLast()
-			{
-				if(length == 0)
-				{
-					return;
 				}
-				Node* temp = head;
-				if(length==1)
+
+				~LinkedList()
 				{
-					head = nullptr;
-					tail = nullptr;
-				}
-				else
-				{
-					Node* pre = head;
-					while(temp->next != nullptr)
+					Node*  temp = head;
+					while(temp)
 					{
-						pre = temp;
-						temp = temp->next;
+						head = head->next;
+						delete temp;
+						temp = head;
 					}
-					tail = pre;
-					tail->next = nullptr;
-				}
-				length--;
-				delete temp;
-			}
-
-			void prepend(int value)
-			{
-				// create new Node and Node to beginning
-				Node* newNode = new Node(value);
-				if(length == 0)
-				{
-					head = newNode;
-					tail = newNode;
-				}
-				else{
-					newNode->next = head;
-					head = newNode;
-				}
-				length++;
-			}
-
-			void deleteFirst()
-			{
-				if(length == 0)
-				{
-					return;
-				}
-
-				Node* temp = head;
-				if(length == 1)
-				{
-					head = nullptr;
-					tail = nullptr;
-				}
-				else{
-					head = head->next;
-					delete temp;
-				}
-
-				length--;
-			}
-
-			Node* get(const int& index)
-			{
-				if(index<0 || index>=length)
-				{
-					return nullptr;
-				}
-				Node* temp = head;
-				for(int i = 0; i<index; ++i)
-				{
-					temp = temp->next;
-				}
-				return temp;
-			}
-
-			bool set(const int& index, const int& value)
-			{ 
-				Node* temp = get(index);
-				if(temp == nullptr)
-				{
-					return false;
-				}
-				temp->value = value;
-				return true;
-			}
-
-			bool insert(const int& index, const int& value)
-			{
-				//create new Node and insert this Node to a desireed position
-				if(index<0 || index>=length)
-				{
-					return false;
-				}
-				if(index == 0)
-				{
-					prepend(value);
-					return true;
-				}
-				else if(index == length)
-				{
-					append(value);
-					return true;
-				}
-				Node* newNode = new Node(value);
-				Node* temp = get(index-1);
-
-				newNode->next = temp->next;
-				temp->next = newNode;
-
-				length++;
-
-				return true;
-			}
-
-			bool deleteNode(const int& index)
-			{
-				std::cout << "len: " << length << "\n";
-				if(index<0 || index>= length)
-				{
-					return false;
-				}
-				if(index == 0)
-				{
-					deleteFirst();
-				}
-				else if(index == length-1)
-				{
-					deleteLast();
 				}
 				
-				Node* temp = get(index-1);
-				Node* to_delete = get(index);
-				std::cout << "to delete value: " << to_delete->value << "\n";
-				to_delete = nullptr;
-				temp->next = temp->next->next;
-				delete to_delete;
-				length--;
-			}
-
-			void reverse()
-			{
-				Node* temp = head;
-				head = tail;
-				tail = temp;
-				Node* after = temp->next;
-				Node* before = nullptr;
-				for(int i=0;i<length;++i)
+				void print()
 				{
-					after = temp->next;
-					temp->next = before;
-					before = temp;
-					temp = after;
-				}
-			}
-
-			void removeDuplicates() {
-				std::unordered_set<int> values;
-				Node* prev = nullptr;
-				Node* current = head;
-				while (current != nullptr)
-				{
-					auto res = values.insert(current->value);
-					if(!res.second)
+					Node* temp = head;
+					while(temp != nullptr)
 					{
-						prev->next = current->next;
-						delete current;
-						current = prev->next;
-						length--;
+						std::cout << temp->value << "\n";
+						temp = temp->next;
+					}
+					std::cout << "-------------------\n";
+				}
+
+				void append(const int& value)
+				{
+					//create new Node and Node to end
+					Node* newNode = new Node(value);
+					if(length == 0)
+					{
+						head = newNode;
+						tail = newNode;
 					}
 					else{
-						prev = current;
-						current = current->next;
+						tail->next = newNode;
+						tail = newNode;
+					}
+					length++;
+
+				}
+				
+				void deleteLast()
+				{
+					if(length == 0)
+					{
+						return;
+					}
+					Node* temp = head;
+					if(length==1)
+					{
+						head = nullptr;
+						tail = nullptr;
+					}
+					else
+					{
+						Node* pre = head;
+						while(temp->next != nullptr)
+						{
+							pre = temp;
+							temp = temp->next;
+						}
+						tail = pre;
+						tail->next = nullptr;
+					}
+					length--;
+					delete temp;
+				}
+
+				void prepend(int value)
+				{
+					// create new Node and Node to beginning
+					Node* newNode = new Node(value);
+					if(length == 0)
+					{
+						head = newNode;
+						tail = newNode;
+					}
+					else{
+						newNode->next = head;
+						head = newNode;
+					}
+					length++;
+				}
+
+				void deleteFirst()
+				{
+					if(length == 0)
+					{
+						return;
+					}
+
+					Node* temp = head;
+					if(length == 1)
+					{
+						head = nullptr;
+						tail = nullptr;
+					}
+					else{
+						head = head->next;
+						delete temp;
+					}
+
+					length--;
+				}
+
+				Node* get(const int& index)
+				{
+					if(index<0 || index>=length)
+					{
+						return nullptr;
+					}
+					Node* temp = head;
+					for(int i = 0; i<index; ++i)
+					{
+						temp = temp->next;
+					}
+					return temp;
+				}
+
+				bool set(const int& index, const int& value)
+				{ 
+					Node* temp = get(index);
+					if(temp == nullptr)
+					{
+						return false;
+					}
+					temp->value = value;
+					return true;
+				}
+
+				bool insert(const int& index, const int& value)
+				{
+					//create new Node and insert this Node to a desireed position
+					if(index<0 || index>=length)
+					{
+						return false;
+					}
+					if(index == 0)
+					{
+						prepend(value);
+						return true;
+					}
+					else if(index == length)
+					{
+						append(value);
+						return true;
+					}
+					Node* newNode = new Node(value);
+					Node* temp = get(index-1);
+
+					newNode->next = temp->next;
+					temp->next = newNode;
+
+					length++;
+
+					return true;
+				}
+
+				bool deleteNode(const int& index)
+				{
+					std::cout << "len: " << length << "\n";
+					if(index<0 || index>= length)
+					{
+						return false;
+					}
+					if(index == 0)
+					{
+						deleteFirst();
+					}
+					else if(index == length-1)
+					{
+						deleteLast();
+					}
+					
+					Node* temp = get(index-1);
+					Node* to_delete = get(index);
+					std::cout << "to delete value: " << to_delete->value << "\n";
+					to_delete = nullptr;
+					temp->next = temp->next->next;
+					delete to_delete;
+					length--;
+				}
+
+				void reverse()
+				{
+					Node* temp = head;
+					head = tail;
+					tail = temp;
+					Node* after = temp->next;
+					Node* before = nullptr;
+					for(int i=0;i<length;++i)
+					{
+						after = temp->next;
+						temp->next = before;
+						before = temp;
+						temp = after;
 					}
 				}
-			}
+
+				void removeDuplicates() {
+					std::unordered_set<int> values;
+					Node* prev = nullptr;
+					Node* current = head;
+					while (current != nullptr)
+					{
+						auto res = values.insert(current->value);
+						if(!res.second)
+						{
+							prev->next = current->next;
+							delete current;
+							current = prev->next;
+							length--;
+						}
+						else{
+							prev = current;
+							current = current->next;
+						}
+					}
+				}
 
 
-		private:
-			Node* head{nullptr};
-			Node* tail{nullptr};
-			int length{0};
-	};
+			private:
+				Node* head{nullptr};
+				Node* tail{nullptr};
+				int length{0};
+		};
 
+
+	}
+
+	namespace DoublyLinkedList
+	{
+		class Node{
+			public: 
+				int value;
+				Node* next;
+				Node* prev;
+
+				Node(int value) : value{value}, next{nullptr}, prev{nullptr}
+				{}
+				
+		};
+
+		class DoublyLinkedList{
+			private:
+				Node* head;
+				Node* tail;
+				int length;
+			
+			public:
+				DoublyLinkedList(int value)
+				{
+					Node* newNode = new Node(value);
+					head = newNode;
+					tail = newNode;
+					length = 1;
+				}
+
+				void printList()
+				{
+					Node* temp = head;
+					while(temp)
+					{
+						std::cout << temp->value << "\n";
+						temp = temp->next;
+					}
+					std::cout << "----------------------------------\n";
+				}
+		};
+	}
+	
 	void linked_list_run()
 	{
 		
-		LinkedList* linked_list = new LinkedList(0);
+		LinkedList::LinkedList* linked_list = new LinkedList::LinkedList(0);
 		/*
 		linked_list->print();
 
@@ -427,11 +472,20 @@ namespace STL
 		linked_list->append(4);
 		linked_list->removeDuplicates();
 		linked_list->print();
+
+	}
+
+	void doubly_linked_list_run()
+	{
+		DoublyLinkedList::DoublyLinkedList* dll = new DoublyLinkedList::DoublyLinkedList(0);
+		dll->printList();
+		
 	}
 
 	void run(){
 		
-		linked_list_run();
+		//linked_list_run();
+		doubly_linked_list_run();
 	
 	}
 }
