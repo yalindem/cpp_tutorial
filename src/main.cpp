@@ -10,6 +10,7 @@
 #include <execution>
 #include <numeric>
 #include <iterator>
+#include <unordered_set>
 
 
 namespace BIGO
@@ -165,6 +166,7 @@ namespace STL
 					std::cout << temp->value << "\n";
 					temp = temp->next;
 				}
+				std::cout << "-------------------\n";
 			}
 
 			void append(const int& value)
@@ -342,6 +344,27 @@ namespace STL
 				}
 			}
 
+			void removeDuplicates() {
+				std::unordered_set<int> values;
+				Node* prev = nullptr;
+				Node* current = head;
+				while (current != nullptr)
+				{
+					auto res = values.insert(current->value);
+					if(!res.second)
+					{
+						prev->next = current->next;
+						delete current;
+						current = prev->next;
+						length--;
+					}
+					else{
+						prev = current;
+						current = current->next;
+					}
+				}
+			}
+
 
 		private:
 			Node* head{nullptr};
@@ -351,48 +374,58 @@ namespace STL
 
 	void linked_list_run()
 	{
-		LinkedList* linked_list = new LinkedList(4);
+		
+		LinkedList* linked_list = new LinkedList(0);
+		/*
 		linked_list->print();
-		std::cout << "-------------------\n";
+
 		linked_list->append(10);
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->deleteLast();
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->deleteLast();
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->deleteLast();
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->deleteLast();
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->prepend(3);
 		linked_list->prepend(2);
 		linked_list->prepend(1);
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->deleteFirst();
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->deleteFirst();
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->deleteFirst();
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->append(1);
 		linked_list->append(2);
 		linked_list->append(4);
 		linked_list->insert(2, 3);
 		linked_list->print();
-		std::cout << "-------------------\n";
 		linked_list->deleteNode(2);
 		linked_list->print();
-		std::cout << "-------------------\n";
+		
 		linked_list->reverse();
+		linked_list->print();
+		*/
+		linked_list->append(1);
+		linked_list->append(1);
+		linked_list->append(2);
+		linked_list->append(3);
+		linked_list->append(3);
+		linked_list->append(4);
+		linked_list->removeDuplicates();
 		linked_list->print();
 	}
 
