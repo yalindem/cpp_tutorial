@@ -85,7 +85,7 @@ namespace STL
 		std::cout << "\n-----------------------\n";
 	}
 
-	void linked_list()
+	void list()
 	{
 
 		/*
@@ -122,12 +122,6 @@ namespace STL
 		iterate_with_iterators(my_list); 
 		my_list.reverse(); 
 		iterate_with_iterators(my_list);
-
-		
-
-
-
-
 	}
 	
 	class Node
@@ -217,15 +211,137 @@ namespace STL
 				delete temp;
 			}
 
-			void prepend()
+			void prepend(int value)
 			{
-				// create new Node and Note to beginning
+				// create new Node and Node to beginning
+				Node* newNode = new Node(value);
+				if(length == 0)
+				{
+					head = newNode;
+					tail = newNode;
+				}
+				else{
+					newNode->next = head;
+					head = newNode;
+				}
+				length++;
 			}
 
-			void insert()
+			void deleteFirst()
 			{
-				//create new Node and insert Node
+				if(length == 0)
+				{
+					return;
+				}
+
+				Node* temp = head;
+				if(length == 1)
+				{
+					head = nullptr;
+					tail = nullptr;
+				}
+				else{
+					head = head->next;
+					delete temp;
+				}
+
+				length--;
 			}
+
+			Node* get(const int& index)
+			{
+				if(index<0 || index>=length)
+				{
+					return nullptr;
+				}
+				Node* temp = head;
+				for(int i = 0; i<index; ++i)
+				{
+					temp = temp->next;
+				}
+				return temp;
+			}
+
+			bool set(const int& index, const int& value)
+			{ 
+				Node* temp = get(index);
+				if(temp == nullptr)
+				{
+					return false;
+				}
+				temp->value = value;
+				return true;
+			}
+
+			bool insert(const int& index, const int& value)
+			{
+				//create new Node and insert this Node to a desireed position
+				if(index<0 || index>=length)
+				{
+					return false;
+				}
+				if(index == 0)
+				{
+					prepend(value);
+					return true;
+				}
+				else if(index == length)
+				{
+					append(value);
+					return true;
+				}
+				Node* newNode = new Node(value);
+				Node* temp = get(index-1);
+
+				newNode->next = temp->next;
+				temp->next = newNode;
+
+				length++;
+
+				return true;
+			}
+
+			bool deleteNode(const int& index)
+			{
+				std::cout << "len: " << length << "\n";
+				if(index<0 || index>= length)
+				{
+					return false;
+				}
+				if(index == 0)
+				{
+					deleteFirst();
+				}
+				else if(index == length-1)
+				{
+					deleteLast();
+				}
+				
+				Node* temp = get(index-1);
+				Node* to_delete = get(index);
+				std::cout << "to delete value: " << to_delete->value << "\n";
+				to_delete = nullptr;
+				temp->next = temp->next->next;
+				delete to_delete;
+				length--;
+			}
+
+			void reverse()
+			{
+				Node* temp = head;
+				head = tail;
+				tail = temp;
+				Node* after = temp->next;
+				Node* before = nullptr;
+				for(int i=0;i<length;++i)
+				{
+					after = temp->next;
+					temp->next = before;
+					before = temp;
+					temp = after;
+				}
+			}
+
 
 		private:
 			Node* head{nullptr};
@@ -233,8 +349,8 @@ namespace STL
 			int length{0};
 	};
 
-	void run(){
-		//linked_list();
+	void linked_list_run()
+	{
 		LinkedList* linked_list = new LinkedList(4);
 		linked_list->print();
 		std::cout << "-------------------\n";
@@ -252,6 +368,38 @@ namespace STL
 		std::cout << "-------------------\n";
 		linked_list->deleteLast();
 		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->prepend(3);
+		linked_list->prepend(2);
+		linked_list->prepend(1);
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteFirst();
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteFirst();
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteFirst();
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->append(1);
+		linked_list->append(2);
+		linked_list->append(4);
+		linked_list->insert(2, 3);
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->deleteNode(2);
+		linked_list->print();
+		std::cout << "-------------------\n";
+		linked_list->reverse();
+		linked_list->print();
+	}
+
+	void run(){
+		
+		linked_list_run();
+	
 	}
 }
 
