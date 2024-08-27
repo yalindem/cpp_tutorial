@@ -555,6 +555,33 @@ namespace STL
 					prev->next = newNode;
 					newNode->prev = prev;
 
+					length++;
+
+				}
+
+				bool deleteNode(const int& index)
+				{
+					if(index >= length)
+					{
+						return false;
+					}	
+					if(index==0)
+					{
+						deleteFirst();
+						return true;
+					}
+					else if(index == length-1)
+					{
+						deleteLast();
+						return true;
+					}
+					Node* temp = get(index);
+					Node* prev = get(index-1);
+					prev->next = temp->next;
+
+					temp = nullptr;
+					length--; 
+					return true;
 				}
 
 
@@ -689,6 +716,24 @@ namespace STL
 		dll->insert(1,1);
 		dll->printList();
 
+		dll->deleteNode(0);
+		dll->printList();
+		dll->deleteNode(1);
+		dll->printList();
+		dll->deleteNode(2);
+		dll->printList();
+		dll->deleteNode(1);
+		dll->printList();
+		dll->deleteNode(0);
+		dll->printList();
+		dll->deleteNode(3);
+		dll->printList();
+		dll->deleteNode(1);
+		dll->printList();
+		dll->deleteNode(0);
+		dll->printList();
+		dll->deleteNode(0);
+		dll->printList();
 	}
 
 	void run(){
