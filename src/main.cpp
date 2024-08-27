@@ -400,7 +400,9 @@ namespace STL
 				{
 					Node* newNode = new Node(value);
 					head = newNode;
+					head->prev == nullptr;
 					tail = newNode;
+					tail->next = nullptr;
 					length = 1;
 				}
 
@@ -413,6 +415,125 @@ namespace STL
 						temp = temp->next;
 					}
 					std::cout << "----------------------------------\n";
+				}
+
+				void append(int value)
+				{
+					Node* newNode = new Node(value);
+
+					if(length == 0)
+					{
+						head = newNode;
+						tail = newNode;
+					}
+					else{
+						tail->next = newNode;
+						newNode->prev = tail;
+						tail = newNode;
+						tail->next = nullptr;
+					}
+					length++;
+
+				}
+
+				void deleteLast()
+				{
+					if(length==0) 
+					{
+						return;
+					}
+					if(length == 1)
+					{
+						tail = nullptr;
+						head = nullptr;
+					}
+					else{
+						tail = tail->prev;
+						tail->next = nullptr;
+					}
+					length--;
+				}
+
+				void prepend(int value)
+				{
+					if(length == 0)
+					{
+						append(value);
+						return;
+					}
+					
+					Node* newNode = new Node(value);
+					head->prev = newNode;
+					newNode->prev = nullptr;
+					newNode->next = head;
+					head = newNode;
+					length++;
+
+				}
+
+				void deleteFirst()
+				{
+					if(length == 0){
+						return;
+					}
+
+					if (length == 1)
+					{
+						head = nullptr;
+						tail = nullptr;
+						length--;
+						return;
+					}
+					else 
+					{
+						head = head->next;
+						head->prev = nullptr;
+						length--; 
+					}
+				}
+
+				Node* get(const int& index) const
+				{
+					if(index>length-1)
+					{
+						return nullptr;
+					}
+
+					if(index<length/2)
+					{
+						std::cout << "test1\n";
+						Node* temp = head;
+						for(int i=0; i<index; ++i)
+						{
+							temp = temp->next;
+						}
+						return temp;
+					}
+					else {
+						std::cout << "test2\n";
+						Node* temp = tail;
+						for(int i=0; i<length-index-1; ++i)
+						{
+							temp = temp->prev;
+						}
+						return temp;
+					}
+				}
+
+				bool set(const int& index, const int& value)
+				{
+					Node* node = get(index);
+					if(node)
+					{
+						node->value = value;
+						return true;
+					}
+					return false;
+					
+				}
+
+				int getLength() const {
+					return this->length;
 				}
 		};
 	}
@@ -478,8 +599,64 @@ namespace STL
 	void doubly_linked_list_run()
 	{
 		DoublyLinkedList::DoublyLinkedList* dll = new DoublyLinkedList::DoublyLinkedList(0);
+		/*
+		dll->append(1);
+		dll->append(2);
 		dll->printList();
 		
+		dll->deleteLast();
+		dll->printList();
+		dll->deleteLast();
+		dll->printList();
+		dll->deleteLast();
+		dll->printList();
+		
+		dll->prepend(1);
+		dll->printList();
+		dll->prepend(2);
+		dll->printList();
+		
+
+		dll->append(1);
+		dll->append(2);
+		dll->deleteFirst();
+		dll->printList();
+		dll->deleteFirst();
+		dll->printList();
+		dll->deleteFirst();
+		dll->printList();
+		
+
+		dll->append(5);
+		dll->append(6);
+		dll->append(7);
+		dll->append(8);
+		dll->append(9);
+		dll->append(10);
+		dll->append(11);
+		dll->append(12);
+		dll->append(13);
+
+		std::cout << "element value:" << dll->get(0)->value << "\n";
+		std::cout << "element value:" << dll->get(1)->value << "\n";
+		std::cout << "element value:" << dll->get(2)->value << "\n";
+		std::cout << "element value:" << dll->get(3)->value << "\n";
+		std::cout << "element value:" << dll->get(4)->value << "\n";
+		std::cout << "element value:" << dll->get(5)->value << "\n";
+		std::cout << "element value:" << dll->get(6)->value << "\n";
+		std::cout << "element value:" << dll->get(7)->value << "\n";
+		std::cout << "element value:" << dll->get(8)->value << "\n";
+		std::cout << "element value:" << dll->get(9)->value << "\n";
+		
+
+		dll->append(1);
+		dll->append(2);
+		dll->append(3);
+		dll->set(1,4);
+		dll->printList();
+		*/
+	
+
 	}
 
 	void run(){

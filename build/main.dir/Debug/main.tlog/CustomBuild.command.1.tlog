@@ -1,6 +1,6 @@
 ^C:\WORKSPACE\CPP_TUTORIAL\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/workspace/cpp_tutorial -BC:/workspace/cpp_tutorial/build --check-stamp-file C:/workspace/cpp_tutorial/build/CMakeFiles/generate.stamp
+C:\cmake-3.23.0-rc1-windows-x86_64\cmake-3.23.0-rc1-windows-x86_64\bin\cmake.exe -SC:/workspace/cpp_tutorial -BC:/workspace/cpp_tutorial/build --check-stamp-file C:/workspace/cpp_tutorial/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
