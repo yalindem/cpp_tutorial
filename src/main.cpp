@@ -501,7 +501,6 @@ namespace STL
 
 					if(index<length/2)
 					{
-						std::cout << "test1\n";
 						Node* temp = head;
 						for(int i=0; i<index; ++i)
 						{
@@ -510,7 +509,6 @@ namespace STL
 						return temp;
 					}
 					else {
-						std::cout << "test2\n";
 						Node* temp = tail;
 						for(int i=0; i<length-index-1; ++i)
 						{
@@ -531,6 +529,34 @@ namespace STL
 					return false;
 					
 				}
+
+				bool insert(const int& index, const int& value)
+				{
+					if(index > length)
+					{
+						return false;
+					}
+					if(index == 0)
+					{
+						append(value);
+						return true;
+					}
+
+					if(index == length)
+					{
+						prepend(value);
+						return true;
+					}
+
+					Node* newNode = new Node(value);
+					Node* prev = get(value-1);
+
+					newNode->next = prev->next;
+					prev->next = newNode;
+					newNode->prev = prev;
+
+				}
+
 
 				int getLength() const {
 					return this->length;
@@ -655,7 +681,13 @@ namespace STL
 		dll->set(1,4);
 		dll->printList();
 		*/
-	
+
+		dll->append(2);
+		dll->append(3);
+		dll->append(4);
+		dll->append(5);
+		dll->insert(1,1);
+		dll->printList();
 
 	}
 
