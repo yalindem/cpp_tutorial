@@ -612,7 +612,26 @@ namespace STL
 					top = newNode;
 					height = 1;
 				}
-				
+
+				void push(int value)
+				{
+					Node* newNode = new Node(value);
+					newNode->next = top;
+					top = newNode;
+					height++;
+					
+				}
+
+				void printStack()
+				{
+					Node* temp = top;
+					while(top)
+					{
+						std::cout << temp->value << "\n";
+						temp = temp->next;
+					}
+					std::cout << "--------------------------------------\n";
+				}
 
 
 		};
@@ -763,11 +782,19 @@ namespace STL
 		dll->printList();
 	}
 
+	void stack_run()
+	{
+		Stack::Stack* st = new Stack::Stack(1);
+		st->push(2);
+		st->printStack();
+
+	}
+
 	void run(){
 		
 		//linked_list_run();
-		doubly_linked_list_run();
-	
+		//doubly_linked_list_run();
+		stack_run();
 	}
 }
 
