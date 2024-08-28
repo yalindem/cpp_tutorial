@@ -622,10 +622,21 @@ namespace STL
 					
 				}
 
+				int pop()
+				{
+					if(height == 0) return INT_MIN;
+
+					int popped_val = top->value;
+					top = top->next;
+					
+					height--;
+					return popped_val;
+				}
+
 				void printStack()
 				{
 					Node* temp = top;
-					while(top)
+					for(int i = 0; i < height; ++i)
 					{
 						std::cout << temp->value << "\n";
 						temp = temp->next;
@@ -786,6 +797,11 @@ namespace STL
 	{
 		Stack::Stack* st = new Stack::Stack(1);
 		st->push(2);
+		st->push(3);
+		st->printStack();
+		st->pop();
+		st->printStack();
+		st->pop();
 		st->printStack();
 
 	}
