@@ -591,6 +591,33 @@ namespace STL
 		};
 	}
 	
+	namespace Stack{
+		class Node{
+			public:
+				int value;
+				Node* next;
+
+				Node(int value):value{value}, next{nullptr} {}
+		};
+
+		class Stack
+		{
+			private:
+				Node* top;
+				int height;
+			public:
+				
+				Stack(int value){
+					Node* newNode = new Node(value);
+					top = newNode;
+					height = 1;
+				}
+				
+
+
+		};
+	}
+
 	void linked_list_run()
 	{
 		
@@ -743,7 +770,6 @@ namespace STL
 	
 	}
 }
-
 
 namespace section2
 {
@@ -1265,7 +1291,6 @@ namespace Virtual
 
 	}
 }
-
 
 
 int main()
