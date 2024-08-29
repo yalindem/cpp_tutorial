@@ -648,6 +648,83 @@ namespace STL
 		};
 	}
 
+	namespace BinarySearchTree{
+		
+		/*
+		* O(log n) search
+		*/
+
+		class Node{
+			public:
+				int value;
+				Node* left;
+				Node* right;
+				Node(int value):value{value}, right{nullptr}, left{nullptr}
+				{}
+		};
+
+		class BinarySearchTree{
+			
+			public:
+				Node* root;
+				BinarySearchTree() : root{nullptr} {}
+
+				bool insert(int value){
+					Node* newNode = new Node(value);
+					if(root == nullptr) {
+						root = newNode;
+						return true;
+					}				
+					Node* temp = root;
+					while(true)
+					{
+						if(temp->value == newNode->value)
+						{
+							std::cout << "Value exists already\n";
+							return false;
+						}
+						if(newNode->value<temp->value)
+						{
+							if(temp->left == nullptr)
+							{
+								temp->left = newNode;
+								return true;
+							}
+							temp = temp->left;
+
+						}
+						else {
+							if(temp->right == nullptr)
+							{
+								temp->right = newNode;
+								return true;
+							}
+							temp = temp->right;
+						}
+					}
+				}
+		
+				bool contains(int value){
+					
+					if(root == nullptr) return false;
+
+					Node* temp = root;
+					while(temp){
+						if(temp->value < value){  // going right
+							temp = temp->right;
+						}
+						else if(temp->value > value){	// goindg left
+							temp = temp->left;
+						}
+						else if(temp->value == value){
+							return true; // found!!
+						}
+					}
+					return false;
+				}
+		};
+	}
+
 	void linked_list_run()
 	{
 		
@@ -806,11 +883,33 @@ namespace STL
 
 	}
 
+	void binary_search_tree_run()
+	{
+		BinarySearchTree::BinarySearchTree* bst = new BinarySearchTree::BinarySearchTree();
+		bst->insert(47);
+		bst->insert(21);
+		bst->insert(76);
+		bst->insert(18);
+		bst->insert(52);
+		bst->insert(82);
+		bst->insert(27);
+		//std::cout << bst->root->left->right->value << "\n";
+
+		std::cout << bst->contains(46) << "\n";
+		std::cout << bst->contains(47) << "\n";
+		std::cout << bst->contains(21) << "\n";
+		std::cout << bst->contains(18) << "\n";
+		std::cout << bst->contains(82) << "\n";
+		std::cout << bst->contains(100) << "\n";
+
+	}
+
 	void run(){
 		
 		//linked_list_run();
 		//doubly_linked_list_run();
-		stack_run();
+		//stack_run();
+		binary_search_tree_run();
 	}
 }
 
