@@ -1348,7 +1348,7 @@ namespace Algo
 	void iota()
 	{
 		std::list<int> list(10);
-	std:iota(list.begin(), list.end(), -4);
+		std:iota(list.begin(), list.end(), -4);
 
 	}
 
