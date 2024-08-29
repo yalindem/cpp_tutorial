@@ -725,6 +725,49 @@ namespace STL
 		};
 	}
 
+	namespace HastTable{
+		/*
+		*	Adress space
+		* 	key-value pair stored in this adress space
+		* 	hash is performed on the key
+		*/
+		class Node{
+			public:
+				std::string key;
+				int value;
+				Node* next;
+				Node(std::string key, int value):key{key}, value{value}, next{nullptr}
+				{}
+		};
+
+		class HashTable{
+			private:
+				static const int SIZE = 7;
+				Node* dataMap[SIZE];
+			
+			public:
+				
+				void printTable(){
+					for (int i = 0; i<SIZE; ++i)
+					{
+						std::cout << i << ":\n";
+						if(dataMap[i])
+						{
+							Node* temp = dataMap[i];
+							while(temp)
+							{
+								std::cout << " {" << temp->key << ", " << temp->value << "}\n";
+								temp = temp->next;
+							}
+						}
+					}
+				}
+
+		
+
+		};
+	}
+
 	void linked_list_run()
 	{
 		
@@ -904,12 +947,19 @@ namespace STL
 
 	}
 
+	void hast_table_run()
+	{
+		HastTable::HashTable* ht = new HastTable::HashTable();
+		ht->printTable();
+	}
+
 	void run(){
 		
 		//linked_list_run();
 		//doubly_linked_list_run();
 		//stack_run();
-		binary_search_tree_run();
+		//binary_search_tree_run();
+		hast_table_run();
 	}
 }
 
