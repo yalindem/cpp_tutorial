@@ -783,8 +783,27 @@ namespace STL
 						dataMap[index] = newNode;
 					}
 					else{
-						
+						Node* temp = dataMap[index];
+						while(temp->next != nullptr)
+						{
+							temp = temp->next;
+						}
+						temp->next = newNode;
 					}
+				}
+
+				int get(std::string key){
+
+					int index = hash(key);
+					Node* temp = dataMap[index];
+					while(temp != nullptr){
+						if(temp->key == key) 
+						{
+							return (temp->value);
+						}
+						temp = temp->next;
+					}
+					return 0;
 				}
 		
 
