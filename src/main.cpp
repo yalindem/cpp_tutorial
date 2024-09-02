@@ -12,6 +12,55 @@
 #include <iterator>
 #include <unordered_set>
 
+const int val1{33};
+constexpr int val2{34};
+int val3{35};
+constinit int val4 {15};
+
+constinit int age {88};
+//const constinit int age1{val1}; // error
+//constinit int age2{age1}; // error
+//constinit int age3{val4}; // error
+//age = 20; // error
+
+namespace Const{
+	/*
+	* 1 - compile time
+	* 2 - run time
+	* const: The initialization of a const variable can happen at runtime or compile-time.
+
+	* constexpr variables must be initialized with a constant expression (i.e., an expression that can be evaluated at compile-time).
+	* constant expressions: Constants that MAY be evaluated at compile time or runtime.
+
+	* constinit: variable should be initialized at compile time.
+	* difference constexpr and constinit: 
+	* constinit can only be applied to variables with static or thread storage duration.
+	*/
+	void run()
+	{
+		const int a = 5; 
+		// a = 19; // error
+
+		constexpr int eye_count {2};
+		constexpr double PI {3.14};
+		int leg_count {2};
+		//constexpr int arm_count{leg_count}; // error because leg_count is not constexpr
+		constexpr int room_cout{10};
+		constexpr int door_count{room_cout}; // OK
+
+		const int table_count{4};
+		constexpr int chair_count{table_count}; // OK
+		constexpr int chair_count2{ 5* table_count}; // OK
+
+		static_assert(eye_count == 2);
+		static_assert(door_count == 10);
+
+		//constinit int a = 8; // you cannot use constinit here
+
+	}
+
+}
+
 
 namespace BIGO
 {
@@ -400,7 +449,7 @@ namespace STL
 				{
 					Node* newNode = new Node(value);
 					head = newNode;
-					head->prev == nullptr;
+					head->prev = nullptr;
 					tail = newNode;
 					tail->next = nullptr;
 					length = 1;
@@ -1539,10 +1588,12 @@ namespace Virtual
 }
 
 
+
 int main()
 {
 	//Algo::run();
 	//Virtual::run();
-	STL::run();
+	//STL::run();
+	Const::run();
 }
 
