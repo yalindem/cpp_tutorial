@@ -763,6 +763,29 @@ namespace STL
 					}
 				}
 
+				int hash(std::string key){
+					int hash = 0;
+
+					for(int i=0; i < key.length(); ++i)
+					{
+						int ascii_value = int(key[i]);
+						hash = (hash + ascii_value * 23) % SIZE; 
+					}
+					return hash;
+				}
+
+				void set(std::string key, int value)
+				{
+					int index = hash(key);
+					Node* newNode = new Node(key, value);
+					if(dataMap[index] == nullptr)
+					{
+						dataMap[index] = newNode;
+					}
+					else{
+						
+					}
+				}
 		
 
 		};
