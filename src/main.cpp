@@ -805,7 +805,19 @@ namespace STL
 					}
 					return 0;
 				}
-		
+
+				std::vector<std::string> keys()
+				{
+					std::vector<std::string> allkeys{};
+					for(int i = 0; i<SIZE; ++i){
+						Node* temp = dataMap[i];
+						while(temp != nullptr){
+							allkeys.push_back(temp->key);
+							temp = temp->next;
+						}
+					}
+					return allkeys;
+				}
 
 		};
 	}
